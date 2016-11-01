@@ -18,6 +18,7 @@
 
 
         <ImageView
+            android:contentDescription="@string/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/body"
@@ -25,20 +26,23 @@
             android:id="@+id/body"/>
 
         <ImageView
+            android:contentDescription="@string/arms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arms"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:id="@+id/arms"/>
 
         <ImageView
+            android:contentDescription="@string/ears"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ears"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:id="@+id/ears"/>
 
         <ImageView
+            android:contentDescription="@string/eyebrows"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/eyebrows"
@@ -46,6 +50,7 @@
             android:id="@+id/eyebrows"/>
 
         <ImageView
+            android:contentDescription="@string/eyes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/eyes"
@@ -53,6 +58,7 @@
             android:id="@+id/eyes"/>
 
         <ImageView
+            android:contentDescription="@string/glasses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/glasses"
@@ -60,6 +66,7 @@
             android:id="@+id/glasses"/>
 
         <ImageView
+            android:contentDescription="@string/hat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/hat"
@@ -67,6 +74,7 @@
             android:id="@+id/hat"/>
 
         <ImageView
+            android:contentDescription="@string/mouth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/mouth"
@@ -74,6 +82,7 @@
             android:id="@+id/mouth"/>
 
         <ImageView
+            android:contentDescription="@string/moustache"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/mustache"
@@ -81,6 +90,7 @@
             android:id="@+id/mustache"/>
 
         <ImageView
+            android:contentDescription="@string/nose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/nose"
@@ -88,6 +98,7 @@
             android:id="@+id/nose"/>
 
         <ImageView
+            android:contentDescription="@string/shoes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/shoes"
@@ -107,13 +118,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <CheckBox
-                android:text="Body"
+                android:text="@string/body"
                 android:id="@+id/BodyBox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:checked="true"
+                />
 
             <CheckBox
-                android:text="Arms"
+                android:text="@string/arms"
                 android:id="@+id/ArmsBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,13 +140,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <CheckBox
-                android:text="Ears"
+                android:text="@string/ears"
                 android:id="@+id/EarsBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <CheckBox
-                android:text="Eyebrows"
+                android:text="@string/eyebrows"
                 android:id="@+id/EyebrowsBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -145,13 +159,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <CheckBox
-                android:text="Eyes"
+                android:text="@string/eyes"
                 android:id="@+id/EyesBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <CheckBox
-                android:text="Glasses"
+                android:text="@string/glasses"
                 android:id="@+id/GlassesBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -164,13 +178,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <CheckBox
-                android:text="Hat"
+                android:text="@string/hat"
                 android:id="@+id/HatBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <CheckBox
-                android:text="Mouth"
+                android:text="@string/mouth"
                 android:id="@+id/MouthBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -183,13 +197,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <CheckBox
-                android:text="Mustache"
+                android:text="@string/moustache"
                 android:id="@+id/MustacheBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <CheckBox
-                android:text="Nose"
+                android:text="@string/nose"
                 android:id="@+id/NoseBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -202,7 +216,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <CheckBox
-                android:text="Shoes"
+                android:text="@string/shoes"
                 android:id="@+id/ShoesBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

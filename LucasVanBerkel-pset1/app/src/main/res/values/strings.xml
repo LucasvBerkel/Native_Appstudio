@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">LucasVanBerkel-pset1</string>
+    <string name="body">Body</string>
+    <string name="arms">Arms</string>
+    <string name="eyebrows">Eyebrows</string>
+    <string name="eyes">Eyes</string>
+    <string name="nose">Nose</string>
+    <string name="moustache">Moustache</string>
+    <string name="shoes">Shoes</string>
+    <string name="hat">Hat</string>
+    <string name="ears">Ears</string>
+    <string name="glasses">Glasses</string>
+    <string name="mouth">Mouth</string>
 </resources>
