@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/eyebrows"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:id="@+id/eyebrows"/>
 
         <ImageView
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/eyes"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:id="@+id/eyes"/>
 
         <ImageView
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/glasses"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:id="@+id/glasses"/>
 
         <ImageView
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/hat"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:id="@+id/hat"/>
 
         <ImageView
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/mouth"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:id="@+id/mouth"/>
 
         <ImageView
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/mustache"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:id="@+id/mustache"/>
 
         <ImageView
@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/nose"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:id="@+id/nose"/>
 
         <ImageView
@@ -102,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/shoes"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:id="@+id/shoes"/>
     </RelativeLayout>
 
@@ -133,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:button="@null"
                 android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                android:onClick="onCheckboxClicked"
                 android:layout_gravity="end"/>
         </TableRow>
 
@@ -143,7 +144,8 @@
                 android:text="@string/ears"
                 android:id="@+id/EarsBox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"/>
 
             <CheckBox
                 android:text="@string/eyebrows"
@@ -152,7 +154,8 @@
                 android:layout_height="wrap_content"
                 android:button="@null"
                 android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                android:layout_gravity="end"/>
+                android:layout_gravity="end"
+                android:onClick="onCheckboxClicked"/>
         </TableRow>
 
         <TableRow
@@ -162,7 +165,8 @@
                 android:text="@string/eyes"
                 android:id="@+id/EyesBox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"/>
 
             <CheckBox
                 android:text="@string/glasses"
@@ -171,7 +175,8 @@
                 android:layout_height="wrap_content"
                 android:button="@null"
                 android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                android:layout_gravity="end"/>
+                android:layout_gravity="end"
+                android:onClick="onCheckboxClicked"/>
         </TableRow>
 
         <TableRow
@@ -181,7 +186,8 @@
                 android:text="@string/hat"
                 android:id="@+id/HatBox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"/>
 
             <CheckBox
                 android:text="@string/mouth"
@@ -190,7 +196,8 @@
                 android:layout_height="wrap_content"
                 android:button="@null"
                 android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                android:layout_gravity="end"/>
+                android:layout_gravity="end"
+                android:onClick="onCheckboxClicked"/>
         </TableRow>
 
         <TableRow
@@ -200,7 +207,8 @@
                 android:text="@string/moustache"
                 android:id="@+id/MustacheBox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"/>
 
             <CheckBox
                 android:text="@string/nose"
@@ -209,7 +217,8 @@
                 android:layout_height="wrap_content"
                 android:button="@null"
                 android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                android:layout_gravity="end"/>
+                android:layout_gravity="end"
+                android:onClick="onCheckboxClicked"/>
         </TableRow>
 
         <TableRow
@@ -219,7 +228,8 @@
                 android:text="@string/shoes"
                 android:id="@+id/ShoesBox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"/>
         </TableRow>
     </TableLayout>
 </RelativeLayout>
