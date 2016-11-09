@@ -17,9 +17,39 @@
         android:id="@+id/secondScreenTitle"
         android:text="@string/secondScreenTitle"/>
 
-    <EditText
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/secondScreenTitle"/>
+        android:padding="30dp"
+        android:id="@+id/secondScreenText"
+        android:layout_below="@id/secondScreenTitle"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:text="@string/secondScreenWaitText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="@string/secondScreenButton"
+        android:onClick="nextHint"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/secondScreenText"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/secondScreenText"
+        android:id="@+id/secondScreenTextBox"
+        android:hint="@string/secondScreenWaitText"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/secondScreenTextBox"
+        android:layout_centerHorizontal="true"
+        android:padding="20dp"
+        android:id="@+id/secondScreenTextBelow"/>
+
 
 </RelativeLayout>

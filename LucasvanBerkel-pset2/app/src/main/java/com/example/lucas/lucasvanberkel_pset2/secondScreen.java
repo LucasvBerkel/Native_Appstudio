@@ -1,15 +1,19 @@
 package com.example.lucas.lucasvanberkel_pset2;
 
+import android.content.Intent;
+import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import java.io.IOException;
+import java.util.Random;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-import static com.example.lucas.lucasvanberkel_pset2.R.drawable.madlibs;
 
 public class secondScreen extends AppCompatActivity {
+
+    public final static String STORY = "story";
+    Story story = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,16 +22,44 @@ public class secondScreen extends AppCompatActivity {
         readText();
     }
 
-    public void readText(){
-        String[] stories = new String[5];
-        stories[0] = "assets/madlib0_simple.txt";
-        stories[1] = "assets/madlib1_tarzan.txt";
-        stories[2] = "assets/madlib2_university.txt";
-        stories[3] = "assets/madlib3_clothes.txt";
-        stories[4] = "assets/madlib4_dance.txt";
+    public void readText() {
+        String[] stories = {"madlib0_simple.txt", "madlib1_tarzan.txt", "madlib2_university.txt", "madlib3_clothes.txt", "madlib4_dance.txt"};
+        Random rn = new Random();
+        int random = rn.nextInt(4);
+        AssetManager assets = getAssets();
+        try {
+            story = new Story(assets.open(stories[random]));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        InputStream in = new FileInputStream(new File(stories[0]));
-        com.example.lucas.lucasvanberkel_pset2.Story story = new com.example.lucas.lucasvanberkel_pset2.Story(in);
+        ((TextView) findViewById(R.id.secondScreenTextBox)).setHint(story.getNextPlaceholder());
+        String text = Integer.toString(story.getPlaceholderRemainingCount()) + " word(s) remaining";
+        ((TextView) findViewById(R.id.secondScreenText)).setText(text);
 
+        text = "Please type a/an " + story.getNextPlaceholder();
+        ((TextView) findViewById(R.id.secondScreenTextBelow)).setText(text);
+    }
+
+    public void nextHint(View view) {
+        String word = ((TextView) findViewById(R.id.secondScreenTextBox)).getText().toString();
+        if (!word.equals("")) {
+            story.fillInPlaceholder(word);
+            ((TextView) findViewById(R.id.secondScreenTextBox)).setText("");
+            ((TextView) findViewById(R.id.secondScreenTextBox)).setHint(story.getNextPlaceholder());
+            String text = Integer.toString(story.getPlaceholderRemainingCount()) + " word(s) remaining";
+            ((TextView) findViewById(R.id.secondScreenText)).setText(text);
+
+            text = "Please type a/an " + story.getNextPlaceholder();
+            ((TextView) findViewById(R.id.secondScreenTextBelow)).setText(text);
+        }
+
+        if (story.getPlaceholderRemainingCount()==0){
+            Intent intent = new Intent(this, endScreen.class);
+            String message = story.toString();
+            intent.putExtra(STORY, message);
+            startActivity(intent);
+            finish();
+        }
     }
 }

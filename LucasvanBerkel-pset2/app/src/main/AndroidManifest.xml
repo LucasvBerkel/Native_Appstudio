@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".secondScreen"></activity>
+        <activity android:name=".secondScreen" />
+        <activity android:name=".endScreen"></activity>
     </application>
 
 </manifest>
