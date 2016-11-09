@@ -14,6 +14,8 @@ public class Start extends AppCompatActivity {
     }
 
     public void nextActivity(View view){
-c
+        Intent intent = new Intent(this, secondScreen.class);
+        startActivity(intent);
+        finish();
     }
 }
