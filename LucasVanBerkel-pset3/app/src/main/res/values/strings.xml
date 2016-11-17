@@ -2,4 +2,15 @@
     <string name="app_name">LucasVanBerkel-pset3</string>
     <string name="startWatchButton">View your to-watch-list</string>
     <string name="startSearchButton">Search a new movie</string>
+    <string name="searchHint">Search a movietitle</string>
+    <string name="searchButton">Search!</string>
+    <string name="dumbButton">Erase me</string>
+    <string name="posterDec">Movie Poster</string>
+    <string name="movieTitle">Bourne Legacy</string>
+    <string name="movieYear">2006</string>
+    <string name="movieReg">Tony Gilroy</string>
+    <string name="movieActors">Jeremy Renner, Rachel Weisz, Edward Norton, Albert Finney, Joan Allen</string>
+    <string name="movieSummary">When a British reporter was writing an expose about Black Ops operations Treadstone and Black Briar, and the ones responsible for them are concerned. And when Jason Bourne, former Treadstone operative got the file on Treadstone and Black Briar and gave it to Pamela Landy who then passed it to the media. When the men behind Treadstone and Black Briar learn of this, they're concerned how this will affect other ops they have.</string>
+    <string name="buttonToRemove">Remove from your watchlist</string>
+    <string name="buttonToAdd">Add to your watchlist</string>
 </resources>
