@@ -15,7 +15,7 @@
         android:layout_width="140dp"
         android:layout_height="200dp"
         android:id="@+id/moviePoster"
-        android:src="@drawable/bourneLegacy"/>
+        android:src="@drawable/bourne_legacy"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,14 +75,6 @@
         android:id="@+id/movieSummary"
         android:text="@string/movieSummary" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addToWatchlist"
-        android:text="@string/buttonToAdd"
-        android:layout_above="@id/removeFromWatchlist"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -90,6 +82,15 @@
         android:id="@+id/removeFromWatchlist"
         android:text="@string/buttonToRemove"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addToWatchlist"
+        android:text="@string/buttonToAdd"
+        android:layout_above="@id/removeFromWatchlist"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"/>
 </RelativeLayout>

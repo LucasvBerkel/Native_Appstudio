@@ -10,7 +10,7 @@
     <string name="movieYear">2006</string>
     <string name="movieReg">Tony Gilroy</string>
     <string name="movieActors">Jeremy Renner, Rachel Weisz, Edward Norton, Albert Finney, Joan Allen</string>
-    <string name="movieSummary">When a British reporter was writing an expose about Black Ops operations Treadstone and Black Briar, and the ones responsible for them are concerned. And when Jason Bourne, former Treadstone operative got the file on Treadstone and Black Briar and gave it to Pamela Landy who then passed it to the media. When the men behind Treadstone and Black Briar learn of this, they're concerned how this will affect other ops they have.</string>
+    <string name="movieSummary">When a British reporter was writing an expose about Black Ops operations Treadstone and Black Briar, and the ones responsible for them are concerned. And when Jason Bourne, former Treadstone operative got the file on Treadstone and Black Briar and gave it to Pamela Landy who then passed it to the media. When the men behind Treadstone and Black Briar learn of this, they are concerned how this will affect other ops they have.</string>
     <string name="buttonToRemove">Remove from your watchlist</string>
     <string name="buttonToAdd">Add to your watchlist</string>
 </resources>
