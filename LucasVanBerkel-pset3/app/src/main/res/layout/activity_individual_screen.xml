@@ -83,7 +83,9 @@
         android:text="@string/buttonToRemove"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible"
+        android:onClick="changeFavorite"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -92,5 +94,7 @@
         android:text="@string/buttonToAdd"
         android:layout_above="@id/removeFromWatchlist"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible"
+        android:onClick="changeFavorite"/>
 </RelativeLayout>

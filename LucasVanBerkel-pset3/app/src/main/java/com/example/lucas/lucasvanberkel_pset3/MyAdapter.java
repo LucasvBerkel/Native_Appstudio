@@ -24,6 +24,7 @@ public class MyAdapter extends ArrayAdapter<Movie> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
+
         TextView movieTitle = (TextView) convertView.findViewById(R.id.movieTitleSearch);
 
         movieTitle.setText(movie.title);

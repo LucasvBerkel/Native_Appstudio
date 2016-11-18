@@ -7,8 +7,9 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,7 @@ import okhttp3.Response;
 public class searchList extends AppCompatActivity {
 
     private ArrayList<Movie> movielist;
+    public final static String ID = "id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,18 @@ public class searchList extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.searchListview);
         listView.setAdapter(adapter);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Movie movie;
+                movie = (Movie) adapterView.getItemAtPosition(i);
+                Intent viewItemIntent = new Intent(searchList.this, IndividualScreen.class);
+                viewItemIntent.putExtra(ID, movie.getId());
+                startActivity(viewItemIntent);
+            }
+        });
     }
 
     private void load_data_from_api(final String query){
@@ -70,13 +84,10 @@ public class searchList extends AppCompatActivity {
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject object = array.getJSONObject(i);
 
-                                Movie movie = new Movie(object.getString("imdbID"), object.getString("Title"), object.getString("Poster"));
+                                Movie movie = new Movie(object.getString("imdbID"), object.getString("Title"), object.getString("Poster"), object.getString("Year"));
 
                                 movielist.add(movie);
                             }
-                        } else {
-                            Log.d("Tag2", "Wel een toast");
-                            Toast.makeText(getApplicationContext(), "No movies found", Toast.LENGTH_SHORT).show();
                         }
                         Log.d("TAG", "value = " + movielist.size());
                     } catch (IOException|JSONException e){

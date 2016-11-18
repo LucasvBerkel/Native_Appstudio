@@ -1,10 +1,13 @@
 package com.example.lucas.lucasvanberkel_pset3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import org.json.JSONArray;
 
 public class startScreen extends AppCompatActivity {
 
@@ -17,6 +20,13 @@ public class startScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_screen);
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        if (!pref.contains("movieArray")) {
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("movieArray", new JSONArray().toString());
+            editor.apply();
+        }
     }
 
     @Override
@@ -51,6 +61,11 @@ public class startScreen extends AppCompatActivity {
 
         Intent intent = new Intent(this, searchList.class);
         intent.putExtra(SEARCH, searchText);
+        startActivity(intent);
+    }
+
+    public void watchList(View view){
+        Intent intent = new Intent(this, watchlist.class);
         startActivity(intent);
     }
 }

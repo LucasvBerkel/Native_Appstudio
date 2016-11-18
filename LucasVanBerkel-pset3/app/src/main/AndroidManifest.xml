@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".searchList" />
         <activity android:name=".IndividualScreen" />
+        <activity android:name=".watchlist"></activity>
     </application>
 
 </manifest>
