@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LucasVanBerkel-pset4</string>
+    <string name="nameBanner">To-Do-List!</string>
+    <string name="hulpBanner">Hold item to remove</string>
+    <string name="editText">Add a new to-do item</string>
+    <string name="buttonText">Add</string>
+</resources>
