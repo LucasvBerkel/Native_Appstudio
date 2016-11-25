@@ -31,7 +31,7 @@ public class DbHelper extends SQLiteOpenHelper {
         String[] standard= {"Laundry", "Dishes", "Homework"};
         ContentValues values = new ContentValues();
         for(String item:standard) {
-            values.put(COLUMN_ITEM, item);c
+            values.put(COLUMN_ITEM, item);
             values.put(COLUMN_STATUS, 0);
             db.insert(TABLE_NAME, null, values);
         }
