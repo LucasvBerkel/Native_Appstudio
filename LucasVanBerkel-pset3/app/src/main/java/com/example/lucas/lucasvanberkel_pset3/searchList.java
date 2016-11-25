@@ -28,6 +28,7 @@ public class searchList extends AppCompatActivity {
 
     private ArrayList<Movie> movielist;
     public final static String ID = "id";
+    MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +42,12 @@ public class searchList extends AppCompatActivity {
 
         String searchURL = buildURL(searchquery);
 
-        load_data_from_api(searchURL);
-
-        MyAdapter adapter = new MyAdapter(this, movielist);
+        adapter = new MyAdapter(this, movielist);
 
         ListView listView = (ListView) findViewById(R.id.searchListview);
         listView.setAdapter(adapter);
 
+        load_data_from_api(searchURL);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -59,6 +59,18 @@ public class searchList extends AppCompatActivity {
                 startActivity(viewItemIntent);
             }
         });
+
+        while (true) {
+            if (movielist.size() != 0) {
+                adapter.notifyDataSetChanged();
+                break;
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void load_data_from_api(final String query){
@@ -101,6 +113,7 @@ public class searchList extends AppCompatActivity {
                     super.onPostExecute(aVoid);
                 }
             };
+        adapter.notifyDataSetChanged();
         task.execute(query);
     }
 
