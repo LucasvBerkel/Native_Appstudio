@@ -7,4 +7,6 @@
     <string name="nameBannerList">Your lists:</string>
     <string name="hulpBannerList">Tap to view</string>
     <string name="buttonTextList">Add new list</string>
+    <string name="editTextList">Add a new list</string>
+    <string name="cancelText">Cancel</string>
 </resources>

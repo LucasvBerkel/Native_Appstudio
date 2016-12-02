@@ -1,6 +1,7 @@
 package com.example.lucas.lucasvanberkel_pset5;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,17 +14,26 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static com.example.lucas.lucasvanberkel_pset5.R.attr.title;
+
 public class toDoList extends AppCompatActivity {
 
     private ArrayList<Todo> toDoList;
     private String addText;
     private MyAdapter adapter;
+    private String list;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todolist);
+
+        Intent intent = getIntent();
+        list = intent.getStringExtra(listsList.LIST);
+
+        TextView title = (TextView) findViewById(R.id.nameBanner);
+        title.setText(list);
 
         toDoList = new ArrayList<>();
 
@@ -81,7 +91,7 @@ public class toDoList extends AppCompatActivity {
 
     private void populatetoDoList(){
         DbHelper db = new DbHelper(this);
-        toDoList = db.getAllToDo();
+        toDoList = db.getAllToDo(list);
     }
 
     private void addtoTodoList() {
@@ -91,7 +101,7 @@ public class toDoList extends AppCompatActivity {
         } else {
             Todo newTodo = new Todo(addText, 0);
             DbHelper db = new DbHelper(this);
-            db.addTodo(newTodo);
+            db.addTodo(newTodo, list);
             toDoList.add(newTodo);
             adapter.notifyDataSetChanged();
             hideSoftKeyboard(toDoList.this);
@@ -102,7 +112,7 @@ public class toDoList extends AppCompatActivity {
 
     private void deleteTodo(Todo delToDo){
         DbHelper db = new DbHelper(this);
-        db.deleteTodo(delToDo);
+        db.deleteTodo(delToDo, list);
         toDoList.remove(delToDo);
         adapter.notifyDataSetChanged();
     }
@@ -111,10 +121,10 @@ public class toDoList extends AppCompatActivity {
         DbHelper db = new DbHelper(this);
         if (upToDo.status == 0){
             upToDo.setStatus(1);
-            db.updateToDo(upToDo);
+            db.updateToDo(upToDo, list);
         } else{
             upToDo.setStatus(0);
-            db.updateToDo(upToDo);
+            db.updateToDo(upToDo, list);
         }
         adapter.notifyDataSetChanged();
     }

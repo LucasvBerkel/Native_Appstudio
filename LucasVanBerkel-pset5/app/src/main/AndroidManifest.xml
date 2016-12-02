@@ -15,7 +15,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".toDoList"></activity>
+        <activity android:name=".toDoList" />
+        <activity
+            android:name=".addList"
+            android:windowSoftInputMode="stateVisible"
+            >
+
+        </activity>
     </application>
 
 </manifest>

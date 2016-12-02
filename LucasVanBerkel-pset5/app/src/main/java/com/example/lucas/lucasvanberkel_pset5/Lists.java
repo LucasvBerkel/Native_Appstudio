@@ -15,6 +15,10 @@ public class Lists {
         lists = new ArrayList<>();
     }
 
+    protected boolean stringInArray(String list){
+        return lists.contains(list);
+    }
+
     protected void addToArray(String list){
         lists.add(list);
     }

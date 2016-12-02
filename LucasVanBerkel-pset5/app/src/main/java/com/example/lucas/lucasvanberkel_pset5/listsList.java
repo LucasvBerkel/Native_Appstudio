@@ -1,7 +1,9 @@
 package com.example.lucas.lucasvanberkel_pset5;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +17,7 @@ public class listsList extends AppCompatActivity {
 
     private ArrayList<String> listOfLists;
     private ArrayAdapter adapter;
+    public final static String LIST = "list";
 
 
     @Override
@@ -35,9 +38,9 @@ public class listsList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Todo toDo;
-                toDo = (Todo) adapterView.getItemAtPosition(i);
-                updateTodo(toDo);
+                String list;
+                list = (String) adapterView.getItemAtPosition(i);
+                viewList(list);
             }
         });
 
@@ -63,27 +66,31 @@ public class listsList extends AppCompatActivity {
     }
 
     private void populatetoDoList(){
-        Lists lists = Lists.getInstance();
-        listOfLists = lists.getArray();
+        DbHelper db = new DbHelper(this);
+        listOfLists = db.getAllLists();
+        Lists list = Lists.getInstance();
+        for (String listName : listOfLists){
+            list.addToArray(listName);
+        }
     }
 
     private void deleteList(String list){
+        printArraylist();
+
+        DbHelper db = new DbHelper(this);
+        db.deleteList(list);
         Lists lists = Lists.getInstance();
         lists.removeFromArray(list);
-        listOfLists = lists.getArray();
+        listOfLists.remove(list);
+
         adapter.notifyDataSetChanged();
+        printArraylist();
     }
 
-    private void updateTodo(Todo upToDo) {
-        DbHelper db = new DbHelper(this);
-        if (upToDo.status == 0){
-            upToDo.setStatus(1);
-            db.updateToDo(upToDo);
-        } else{
-            upToDo.setStatus(0);
-            db.updateToDo(upToDo);
-        }
-        adapter.notifyDataSetChanged();
+    private void viewList(String list){
+        Intent intent = new Intent(this, toDoList.class);
+        intent.putExtra(LIST, list);
+        startActivity(intent);
     }
 
     private void toastDelete(){
@@ -91,5 +98,15 @@ public class listsList extends AppCompatActivity {
     }
 
     private void addtoTodoList(){
+        Intent intent = new Intent(this, addList.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void printArraylist(){
+        Log.d("Temp", "What");
+        for (String listItem: listOfLists) {
+            Log.d("List", listItem);
+        }
     }
 }
