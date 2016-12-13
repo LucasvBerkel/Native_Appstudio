@@ -1,8 +1,11 @@
 package com.example.lucas.lucasvanberkel_pset6;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
@@ -10,23 +13,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+
+import com.example.lucas.lucasvanberkel_pset6.adapter.ExpandableListAdapter;
+import com.example.lucas.lucasvanberkel_pset6.api.ApiHelper;
+import com.example.lucas.lucasvanberkel_pset6.classes.Item;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 public class SearchActivity extends AppCompatActivity {
 
-    private ExpandableListView listView;
+    ExpandableListView listView;
     private ExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
     private HashMap<String, List<Item>> listHash;
+
+    public final static String QUERY = "query";
+    public final static String TYPE = "type";
+    public final static String TITLE = "title";
+
+    private ProgressBar mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +53,12 @@ public class SearchActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Search for movies, tv-series or persons", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Search for movies, tv-series or persons", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Action", null).show();
             }
         });
+
+        mProgress = (ProgressBar) findViewById(R.id.progress_bar);
 
         Intent intent = getIntent();
         String query = intent.getStringExtra(MainActivity.QUERY);
@@ -54,8 +70,19 @@ public class SearchActivity extends AppCompatActivity {
 
         searchQuery(query);
 
-
-
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Item item;
+                item = (Item) listAdapter.getChild(groupPosition, childPosition);
+                Intent intent = new Intent(getApplicationContext(), IndividualActivity.class);
+                intent.putExtra(QUERY, item.getId());
+                intent.putExtra(TYPE, item.getType());
+                intent.putExtra(TITLE, item.getName());
+                startActivity(intent);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -95,25 +122,31 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    private void searchQuery(final String query){
-        new Thread() {
+    private void searchQuery(String query){
+        mProgress.setVisibility(View.VISIBLE);
+        AsyncTask<String, Void, Void> task = new AsyncTask<String, Void, Void>() {
+            @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
-            public void run() {
-
+            protected Void doInBackground(String... strings) {
                 List<Item> itemList;
-
+                String query = strings[0];
                 ApiHelper apiHelper = new ApiHelper();
                 for (int i = 0; i<3; i++) {
                     String queryUrl = apiHelper.buildURL(query, i);
                     itemList = apiHelper.load_data_from_api(queryUrl, i);
                     listHash.put(listDataHeader.get(i), itemList);
                 }
+                return null;
             }
-        }.start();
-    }
 
-    private void toastSomething(String toast){
-        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                listAdapter.notifyDataSetChanged();
+                mProgress.setVisibility(View.GONE);
+            }
+        };
+        task.execute(query);
     }
 
     @Override
@@ -126,10 +159,6 @@ public class SearchActivity extends AppCompatActivity {
         switch (id){
             case R.id.action_about:
                 aboutDialog(this);
-                return true;
-            case R.id.action_refresh:
-                listAdapter.notifyDataSetChanged();
-            case R.id.action_settings:
                 return true;
         }
 

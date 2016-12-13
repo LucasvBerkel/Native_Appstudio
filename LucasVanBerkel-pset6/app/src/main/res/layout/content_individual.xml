@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="60dp"
+    android:paddingBottom="60dp"
+    android:clipToPadding="false">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/content_individual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.example.lucas.lucasvanberkel_pset6.IndividualActivity"
+        tools:showIn="@layout/activity_individual">
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="200dp"
+            android:id="@+id/poster"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_toEndOf="@+id/poster"
+            android:layout_toRightOf="@id/poster"
+            android:id="@+id/title"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="30sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/title"
+            android:id="@+id/year"
+            android:layout_toRightOf="@+id/poster"
+            android:layout_toEndOf="@id/poster"
+            android:textSize="20sp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/year"
+            android:layout_toRightOf="@id/poster"
+            android:layout_toEndOf="@id/poster"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:id="@+id/extra"
+            android:textSize="15sp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/poster"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:id="@+id/summary" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="60dp">
+        </View>
+
+    </RelativeLayout>
+</ScrollView>

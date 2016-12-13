@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "443807630384",
+    "firebase_url": "https://lucasvanberkel-pset6.firebaseio.com",
+    "project_id": "lucasvanberkel-pset6",
+    "storage_bucket": "lucasvanberkel-pset6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443807630384:android:8ae541146b2f7ec2",
+        "android_client_info": {
+          "package_name": "com.example.lucas.lucasvanberkel_pset6"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443807630384-3vqjj91k0k1h3agvvfsk8p94hdtm22v2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEbHPkYzxa8O6WFl39hw2XC8uMUTthDkU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

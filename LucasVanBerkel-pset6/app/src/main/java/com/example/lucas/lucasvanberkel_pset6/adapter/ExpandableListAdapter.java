@@ -1,4 +1,4 @@
-package com.example.lucas.lucasvanberkel_pset6;
+package com.example.lucas.lucasvanberkel_pset6.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,6 +12,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.lucas.lucasvanberkel_pset6.R;
+import com.example.lucas.lucasvanberkel_pset6.classes.Item;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -107,17 +109,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             String link = "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + item.getUrl();
             Picasso.with(context).load(link).into(imgListChild);
         }
-//
-//            String link = "https://image.tmdb.org/t/p/w90_and_h90_bestv2" + item.getUrl();
-//            URL url = null;
-//            try {
-//                url = new URL(link);
-//                Bitmap bmp = new ImageDownload().execute(url).get();
-//                imgListChild.setImageBitmap(bmp);
-//            } catch (MalformedURLException | InterruptedException | ExecutionException e) {
-//                e.printStackTrace();
-//            }
-//        }
         return view;
     }
 

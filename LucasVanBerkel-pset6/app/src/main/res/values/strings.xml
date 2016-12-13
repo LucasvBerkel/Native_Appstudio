@@ -4,4 +4,16 @@
     <string name="action_search">Search</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
+    <string name="action_back">Back</string>
+    <string name="title_activity_individual">IndividualActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="settingsUsername">Username:</string>
+    <string name="settingsUsernameHint">Required</string>
+    <string name="settingsFirstname">Firstname:</string>
+    <string name="settingsFirstnameHint">Required</string>
+    <string name="settingsLastname">Lastname:</string>
+    <string name="settingsLastnameHint">Required</string>
+    <string name="settingsAddress">Address:</string>
+    <string name="settingsAddressHint">Optional</string>
+    <string name="settingsSubmit">Submit changes</string>
 </resources>

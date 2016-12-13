@@ -17,5 +17,6 @@
     <ExpandableListView
         android:id="@+id/lstExp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></ExpandableListView>
+        android:layout_height="wrap_content">
+    </ExpandableListView>
 </RelativeLayout>

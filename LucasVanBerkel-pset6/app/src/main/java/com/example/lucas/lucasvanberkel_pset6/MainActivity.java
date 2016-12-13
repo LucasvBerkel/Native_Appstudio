@@ -1,8 +1,7 @@
 package com.example.lucas.lucasvanberkel_pset6;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,11 +9,17 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
+
+import com.example.lucas.lucasvanberkel_pset6.adapter.ExpandableListAdapter;
+import com.example.lucas.lucasvanberkel_pset6.classes.Item;
+import com.example.lucas.lucasvanberkel_pset6.db.DbHelper;
+import com.example.lucas.lucasvanberkel_pset6.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,12 +27,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ExpandableListView listView;
+    ExpandableListView listView;
     private ExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
     private HashMap<String, List<Item>> listHash;
 
     public final static String QUERY = "query";
+    public final static String TYPE = "type";
+    public final static String TITLE = "title";
 
 
 
@@ -36,6 +43,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        String username = pref.getString("username", null);
+
+        if (username == null) {
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            toolbar.setTitle("Hello " + username + "!");
+            Log.d("Tag", username);
+            Log.d("Hello", "bye");
+        }
+
         setSupportActionBar(toolbar);
 
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -51,35 +73,46 @@ public class MainActivity extends AppCompatActivity {
         initData();
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listHash);
         listView.setAdapter(listAdapter);
+
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Item item;
+                item = (Item) listAdapter.getChild(groupPosition, childPosition);
+                Intent intent = new Intent(getApplicationContext(), IndividualActivity.class);
+                intent.putExtra(QUERY, item.getId());
+                intent.putExtra(TYPE, item.getType());
+                intent.putExtra(TITLE, item.getName());
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        retrieveFav();
     }
 
-    private void initData() {
+    public void initData() {
         listDataHeader = new ArrayList<>();
         listHash = new HashMap<>();
-
 
         listDataHeader.add("Movies");
         listDataHeader.add("Series");
         listDataHeader.add("Persons");
 
-        List<Item> movies = new ArrayList<>();
-        movies.add(new Item("Bourne", "0","0", false));
+        for(int i = 0; i < 3; i++){
+            List<Item> itemList = new ArrayList<>();
+            listHash.put(listDataHeader.get(i), itemList);
+        }
+    }
 
-        List<Item> series = new ArrayList<>();
-        series.add(new Item("Breaking Bad", "0","0", false));
-        series.add(new Item("Game of Thrones", "0","0", false));
-        series.add(new Item("Hello kittie", "0","0", false));
-        series.add(new Item("Watskeburt", "0","0", false));
+    private void retrieveFav(){
+        DbHelper db = new DbHelper(this);
 
-        List<Item> persons = new ArrayList<>();
-        persons.add(new Item("Brad Pitt", "0", "0", false));
-        persons.add(new Item("George Clooney", "0","0", false));
-        persons.add(new Item("Matt Damon", "0","0", false));
-
-        listHash.put(listDataHeader.get(0), movies);
-        listHash.put(listDataHeader.get(1), series);
-        listHash.put(listDataHeader.get(2), persons);
-
+        List<Item> itemList;
+        for (int i = 0; i<3; i++) {
+            itemList = db.getAllFavorites(i);
+            listHash.put(listDataHeader.get(i), itemList);
+        }
     }
 
 
@@ -129,21 +162,18 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id){
             case R.id.action_about:
-                aboutDialog(this);
+                Util.aboutDialog(this);
+                return true;
+            case R.id.action_refresh:
+                retrieveFav();
+                listAdapter.notifyDataSetChanged();
                 return true;
             case R.id.action_settings:
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public static void aboutDialog(Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("By Lucas van Berkel")
-                .setTitle("About")
-                .setCancelable(true);
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 }

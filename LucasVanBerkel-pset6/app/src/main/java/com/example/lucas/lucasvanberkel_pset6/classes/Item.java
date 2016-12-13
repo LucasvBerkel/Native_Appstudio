@@ -1,17 +1,27 @@
-package com.example.lucas.lucasvanberkel_pset6;
+package com.example.lucas.lucasvanberkel_pset6.classes;
 
 public class Item {
 
     private String name;
     private String url;
     private String extra;
-    private boolean favorite;
+    private int type;
+    private int id;
 
-    public Item(String name, String url, String extra, boolean favorite) {
+    public Item(String name, String url, String extra, int type, int id) {
         this.name = name;
         this.url = url;
         this.extra = extra;
-        this.favorite = favorite;
+        this.type = type;
+        this.id = id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -28,17 +38,5 @@ public class Item {
 
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
     }
 }
