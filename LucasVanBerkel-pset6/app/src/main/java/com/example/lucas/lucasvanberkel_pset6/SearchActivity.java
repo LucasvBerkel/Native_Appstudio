@@ -47,13 +47,14 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Results");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Search for movies, tv-series or persons", Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make(view, "Search for movies, tv-series or persons", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

@@ -25,10 +25,8 @@ public class ApiHelper {
     private static final String PATH = "https://api.themoviedb.org/3/";
     private static final String KEY = "&api_key=e91241515c32f872b2352f33e928eb99";
 
-    private List<Item> itemList;
-
     public List<Item> load_data_from_api(final String query, int j){
-        itemList = new ArrayList<>();
+        List<Item> itemList = new ArrayList<>();
         JSONObject total;
         String keyTitle = "0";
         String keyImg = "0";

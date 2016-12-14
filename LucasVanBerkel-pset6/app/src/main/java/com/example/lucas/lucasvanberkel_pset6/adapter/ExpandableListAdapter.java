@@ -1,10 +1,7 @@
 package com.example.lucas.lucasvanberkel_pset6.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +13,8 @@ import com.example.lucas.lucasvanberkel_pset6.R;
 import com.example.lucas.lucasvanberkel_pset6.classes.Item;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 // From https://www.youtube.com/watch?v=jZxZIFnJ9jE
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -76,8 +69,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         String headerTitle = (String)getGroup(i);
         headerTitle = headerTitle + " (" + Integer.toString(getChildrenCount(i)) + ")";
         if(view == null){
-            LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_group, null);
+            LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.list_group, viewGroup, false);
         }
         TextView lblListHeader = (TextView)view.findViewById(R.id.lstGroupHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
@@ -89,8 +82,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         final Item item = (Item)getChild(i, i1);
         if(view == null){
-            LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_item, null);
+            LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.list_item, viewGroup, false);
         }
         TextView txtListChild = (TextView)view.findViewById(R.id.lstItem);
         final String childText = item.getName();
