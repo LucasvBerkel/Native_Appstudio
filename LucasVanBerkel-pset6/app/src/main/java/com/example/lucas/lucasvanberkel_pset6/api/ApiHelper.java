@@ -19,13 +19,22 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-
+/**
+ * Class to seperate communication between activities and the internet. Two types of queries were
+ * used, for that reason two types of loading data from the api methods exists.
+ * Also method has been added to concatenate data from a JSON-array
+ */
 public class ApiHelper {
 
     private static final String PATH = "https://api.themoviedb.org/3/";
     private static final String KEY = "&api_key=e91241515c32f872b2352f33e928eb99";
 
-    public List<Item> load_data_from_api(final String query, int j){
+    /**
+     * This method is used in the search-activity, it takes the query String and
+     * type int(Movie, Tv or person), returns List with items.
+     */
+    public List<Item> load_data_from_api(String query, int j){
+        final String finalQuery = buildURL(query, j);
         List<Item> itemList = new ArrayList<>();
         JSONObject total;
         String keyTitle = "0";
@@ -54,7 +63,7 @@ public class ApiHelper {
             OkHttpClient client = new OkHttpClient();
 
 
-            Request request = new Request.Builder().url(query).build();
+            Request request = new Request.Builder().url(finalQuery).build();
             Response response = client.newCall(request).execute();
 
             jsonString = response.body().string();
@@ -90,7 +99,12 @@ public class ApiHelper {
         return itemList;
     }
 
-    public ItemExtended load_data_from_api_indi(final String query, int j){
+    /**
+     * This method is used in the individual-activity, it takes the api id and
+     * type int(movie, TV or person), returns extendedItem
+     */
+    public ItemExtended load_data_from_api_indi(int query, int j){
+        final String finalQuery = buildURLIndi(query, j);
         ItemExtended item = null;
         JSONObject result;
         String keyTitle = "0";
@@ -127,7 +141,7 @@ public class ApiHelper {
             OkHttpClient client = new OkHttpClient();
 
 
-            Request request = new Request.Builder().url(query).build();
+            Request request = new Request.Builder().url(finalQuery).build();
             Response response = client.newCall(request).execute();
 
             jsonString = response.body().string();
@@ -146,7 +160,8 @@ public class ApiHelper {
         return item;
     }
 
-    public String buildURL(String query, int i){
+    // Two methods to build  URL for the api
+    private String buildURL(String query, int i){
         String[] sortOfSearch = {"movie", "tv", "person"};
         String homeURL = PATH + "search/";
         String extra = sortOfSearch[i] + "?";
@@ -159,13 +174,14 @@ public class ApiHelper {
         return homeURL + extra + queryUrl + KEY;
     }
 
-    public String buildURLIndi(int query, int i){
+    private String buildURLIndi(int query, int i){
         String[] sortOfSearch = {"movie", "tv", "person"};
         String homeURL = PATH;
         String extra = sortOfSearch[i] + "/" + Integer.toString(query) + "?";
         return homeURL + extra + KEY;
     }
 
+    // Method to get the information hidden in a JSON-array(for example, movies which made the actor famous)
     private String concatenateJSONArray(String extra) {
         String finalExtra = "";
         try {

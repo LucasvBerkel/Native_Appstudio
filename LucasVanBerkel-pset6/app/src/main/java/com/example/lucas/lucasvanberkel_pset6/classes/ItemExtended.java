@@ -1,5 +1,8 @@
 package com.example.lucas.lucasvanberkel_pset6.classes;
 
+/**
+ * Extended item class, used when item is searched individually in the individual-activity
+ */
 public class ItemExtended extends Item {
 
     private String extra1;

@@ -22,13 +22,18 @@ import android.widget.ProgressBar;
 import com.example.lucas.lucasvanberkel_pset6.adapter.ExpandableListAdapter;
 import com.example.lucas.lucasvanberkel_pset6.api.ApiHelper;
 import com.example.lucas.lucasvanberkel_pset6.classes.Item;
+import com.example.lucas.lucasvanberkel_pset6.util.Util;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * This is the search-activity. Layout-wise it is almost identical to the main-activity. When activated
+ * it retrieves the query of the main-activity or itself and searches the api for the query.
+ * The result is shown in the same expandable listview as the favorites in the main-activity
+ */
 public class SearchActivity extends AppCompatActivity {
 
     ExpandableListView listView;
@@ -42,6 +47,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private ProgressBar mProgress;
 
+    // Basic onCreate method, retrieves the query, sets up a progressbar, the listview and starts the query
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +92,7 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    // The two methods that initialises the menu toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
@@ -109,6 +116,23 @@ public class SearchActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.action_about:
+                Util.aboutDialog(this);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Same data initialisation as in the main-activity, same warning...
     private void initData(){
         listDataHeader = new ArrayList<>();
         listHash = new HashMap<>();
@@ -123,6 +147,7 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    // The search-method, asynctask is set up and executed.
     private void searchQuery(String query){
         mProgress.setVisibility(View.VISIBLE);
         AsyncTask<String, Void, Void> task = new AsyncTask<String, Void, Void>() {
@@ -133,8 +158,7 @@ public class SearchActivity extends AppCompatActivity {
                 String query = strings[0];
                 ApiHelper apiHelper = new ApiHelper();
                 for (int i = 0; i<3; i++) {
-                    String queryUrl = apiHelper.buildURL(query, i);
-                    itemList = apiHelper.load_data_from_api(queryUrl, i);
+                    itemList = apiHelper.load_data_from_api(query, i);
                     listHash.put(listDataHeader.get(i), itemList);
                 }
                 return null;
@@ -148,30 +172,5 @@ public class SearchActivity extends AppCompatActivity {
             }
         };
         task.execute(query);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        switch (id){
-            case R.id.action_about:
-                aboutDialog(this);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public static void aboutDialog(Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("By Lucas van Berkel")
-                .setTitle("About")
-                .setCancelable(true);
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 }

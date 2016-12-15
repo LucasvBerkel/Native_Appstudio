@@ -16,7 +16,12 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.List;
 
-// From https://www.youtube.com/watch?v=jZxZIFnJ9jE
+/**
+ * This activity builds the expandable adapter.
+ * Source of the code is
+ * From https://www.youtube.com/watch?v=jZxZIFnJ9jE
+ * But the code modified for the use of the app
+ */
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
@@ -64,6 +69,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
+    // Method to initialise a parent in the expandable listview
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
         String headerTitle = (String)getGroup(i);
@@ -78,6 +84,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return view;
     }
 
+    // Method to initialise a child in the expandable listview
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         final Item item = (Item)getChild(i, i1);
@@ -105,6 +112,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return view;
     }
 
+    // Set to true to enable selecting the child(item)
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return true;

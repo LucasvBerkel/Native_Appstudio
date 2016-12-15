@@ -23,6 +23,10 @@ import com.example.lucas.lucasvanberkel_pset6.db.DbHelper;
 import com.example.lucas.lucasvanberkel_pset6.util.Util;
 import com.squareup.picasso.Picasso;
 
+/**
+ * This activity shows a individual item and extends it with additional information. The activity is
+ * accessible from both the main-activity as the searc-activity.
+ */
 public class IndividualActivity extends AppCompatActivity {
 
     ImageView poster;
@@ -37,6 +41,7 @@ public class IndividualActivity extends AppCompatActivity {
     private ProgressBar mProgress;
     private FloatingActionButton fab;
 
+    // Basic onCreate method, finds the views inside the activity and starts the query
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,36 +73,9 @@ public class IndividualActivity extends AppCompatActivity {
         year = (TextView) findViewById(R.id.year);
         extra = (TextView) findViewById(R.id.extra);
         summary = (TextView) findViewById(R.id.summary);
-
     }
 
-    private void changeFav() {
-        DbHelper db = new DbHelper(this);
-        if(fav){
-            db.deleteItem(item);
-            fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorButtonNot)));
-            fab.setImageDrawable(ContextCompat.getDrawable(this, android.R.drawable.btn_star_big_off));
-            fav = false;
-        } else {
-            db.addItem(item);
-            fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorButtonFav)));
-            fab.setImageDrawable(ContextCompat.getDrawable(this, android.R.drawable.btn_star_big_on));
-            fav = true;
-        }
-    }
-
-    private void checkIfFavorite() {
-        DbHelper db = new DbHelper(this);
-
-        if(db.checkIfFav(item.getId())){
-            fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorButtonFav)));
-            fab.setImageDrawable(ContextCompat.getDrawable(this, android.R.drawable.btn_star_big_off));
-            fav = true;
-        } else {
-            fav = false;
-        }
-    }
-
+    // The two methods that initialises the menu toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_indi, menu);
@@ -119,7 +97,36 @@ public class IndividualActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    // Method to check if current selected item is already favorite of the user
+    private void checkIfFavorite() {
+        DbHelper db = new DbHelper(this);
 
+        if(db.checkIfFav(item.getId())){
+            fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorButtonFav)));
+            fab.setImageDrawable(ContextCompat.getDrawable(this, android.R.drawable.btn_star_big_off));
+            fav = true;
+        } else {
+            fav = false;
+        }
+    }
+
+    // Method to change the status of the item to favorite/not-favorite and changes the colors of the floating button
+    private void changeFav() {
+        DbHelper db = new DbHelper(this);
+        if(fav){
+            db.deleteItem(item);
+            fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorButtonNot)));
+            fab.setImageDrawable(ContextCompat.getDrawable(this, android.R.drawable.btn_star_big_off));
+            fav = false;
+        } else {
+            db.addItem(item);
+            fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorButtonFav)));
+            fab.setImageDrawable(ContextCompat.getDrawable(this, android.R.drawable.btn_star_big_on));
+            fav = true;
+        }
+    }
+
+    // Method to search the item in the api, comparable with searchquery in the search-activity
     private void searchIndiQuery(int query, int type) {
         mProgress.setVisibility(View.VISIBLE);
         AsyncTask<Integer, Void, Void> task = new AsyncTask<Integer, Void, Void>() {
@@ -129,8 +136,7 @@ public class IndividualActivity extends AppCompatActivity {
                 int query = params[0];
                 int type = params[1];
                 ApiHelper apiHelper = new ApiHelper();
-                String queryUrl = apiHelper.buildURLIndi(query, type);
-                item = apiHelper.load_data_from_api_indi(queryUrl, type);
+                item = apiHelper.load_data_from_api_indi(query, type);
                 return null;
             }
 
@@ -145,6 +151,7 @@ public class IndividualActivity extends AppCompatActivity {
         task.execute(query, type);
     }
 
+    // Method to fill in the found data, comparable with adapter.notifyDataSetChanged() in the search-activity
     private void fillInViews() {
         String titleString = item.getName();
         String yearString = item.getExtra();

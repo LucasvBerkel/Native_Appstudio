@@ -11,9 +11,12 @@ import com.example.lucas.lucasvanberkel_pset6.classes.Item;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to save the favorite list locally.
+ * Most of the methods are basic SQL method(insert, update, delete)
+ */
 public class DbHelper extends SQLiteOpenHelper {
 
-    // If you change the database schema, you must increment the database version.
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Favorites";
     private static final String TABLE_NAME = "favoriteList";
@@ -46,6 +49,7 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // Method used in main-activity to retrieve all the favorite of a type in the database.
     public List<Item> getAllFavorites(int type){
         ArrayList<Item> list = new ArrayList<>();
         String query = "Select * FROM " + TABLE_NAME + " WHERE " + COLUMN_TYPE + " = ?";
@@ -68,6 +72,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    // Method to add a single item in the database, as favorite.
     public void addItem(Item item){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -83,12 +88,14 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    // Method to delete a single item in the databse
     public void deleteItem(Item delItem){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, COLUMN_NAME + " = ? AND " + COLUMN_API_ID + " = ?", new String[] {delItem.getName(), Integer.toString(delItem.getId())});
         db.close();
     }
 
+    // Method used in individual-activity, if item is present in database, then item is favorite.
     public boolean checkIfFav(int api_id){
         String query = "Select * FROM " + TABLE_NAME + " WHERE " + COLUMN_API_ID + " = ?";
 

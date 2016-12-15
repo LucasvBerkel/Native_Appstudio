@@ -1,5 +1,8 @@
 package com.example.lucas.lucasvanberkel_pset6.classes;
 
+/**
+ * Simple class used to easily separate data of item of eachother
+ */
 public class Item {
 
     private String name;

@@ -25,6 +25,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * This is the first activity of the app. Here the user logs in into his own account saved by firebase.
+ * If the user does not have an account registered, he/she can chose to register his/her own account,
+ * using her own emailadress and password. If login or sign up is succesfull, then the user will
+ * be navigated to his/her own favorite list.
+ */
 public class LogInActivity extends AppCompatActivity {
 
     TextView emailTextField;
@@ -42,6 +48,9 @@ public class LogInActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
 
+
+    // Basic onCreate method, finds the views in the activity and sets the keyboard automatically
+    // to the email field.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +106,30 @@ public class LogInActivity extends AppCompatActivity {
         imm.showSoftInput(emailField, InputMethodManager.SHOW_IMPLICIT);
     }
 
+    // The two methods which inflates and activates the menu toolbar.
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.action_about:
+                Util.aboutDialog(this);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Method to switch between login and sign up mode
     private void toggleSignup() {
         if(login) {
             loginButton.setVisibility(View.INVISIBLE);
@@ -115,6 +148,7 @@ public class LogInActivity extends AppCompatActivity {
         }
     }
 
+    // Method activated when user wants to sign up, code is more less same as in the android guide
     private void signUp() {
         email = emailField.getText().toString();
         password = passwordField.getText().toString();
@@ -151,6 +185,7 @@ public class LogInActivity extends AppCompatActivity {
         }
     }
 
+    // Method activated when user wants to login, code is more less same as in the android guide
     private void submit() {
         email = emailField.getText().toString();
         password = passwordField.getText().toString();
@@ -185,28 +220,4 @@ public class LogInActivity extends AppCompatActivity {
                     });
         }
     }
-    
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        switch (id){
-            case R.id.action_about:
-                Util.aboutDialog(this);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 }

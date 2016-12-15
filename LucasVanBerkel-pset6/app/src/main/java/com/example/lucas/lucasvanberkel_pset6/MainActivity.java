@@ -23,6 +23,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This is the main activity, where the user can view his/her own favorites. This is the first activity
+ * the user sees after logging in/signing up. The first time the list is empty, the user can search
+ * for anything or anyone of hollywood using the searchbar in the menu toolbar.
+ */
 public class MainActivity extends AppCompatActivity {
 
     ExpandableListView listView;
@@ -35,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public final static String TITLE = "title";
 
 
-
+    // Basic onCreate method, initialises the expandable listview en retrieves the already known favorites
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,31 +80,7 @@ public class MainActivity extends AppCompatActivity {
         retrieveFav();
     }
 
-    public void initData() {
-        listDataHeader = new ArrayList<>();
-        listHash = new HashMap<>();
-
-        listDataHeader.add("Movies");
-        listDataHeader.add("Series");
-        listDataHeader.add("Persons");
-
-        for(int i = 0; i < 3; i++){
-            List<Item> itemList = new ArrayList<>();
-            listHash.put(listDataHeader.get(i), itemList);
-        }
-    }
-
-    private void retrieveFav(){
-        DbHelper db = new DbHelper(this);
-
-        List<Item> itemList;
-        for (int i = 0; i<3; i++) {
-            itemList = db.getAllFavorites(i);
-            listHash.put(listDataHeader.get(i), itemList);
-        }
-    }
-
-
+    // The two methods that initialises the menu toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -123,20 +104,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private  void searchQuery(String query){
-        if (query.equals("")){
-            toastSomething("Cannot search an empty string");
-        } else{
-            Intent intent = new Intent(this, SearchActivity.class);
-            intent.putExtra(QUERY, query);
-            startActivity(intent);
-        }
-    }
-
-    private void toastSomething(String toast){
-        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -150,14 +117,62 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_refresh:
                 retrieveFav();
-                listAdapter.notifyDataSetChanged();
                 return true;
             case R.id.action_settings:
                 Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
                 startActivity(intent);
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Initialises the data for the expandable listview adapter. Bugs me that I have to initialise
+     * empty lists for the items, but the app has to wait for the database to respond, before
+     * filling the lists.
+     */
+    public void initData() {
+        listDataHeader = new ArrayList<>();
+        listHash = new HashMap<>();
+
+        listDataHeader.add("Movies");
+        listDataHeader.add("Series");
+        listDataHeader.add("Persons");
+
+        for(int i = 0; i < 3; i++){
+            List<Item> itemList = new ArrayList<>();
+            listHash.put(listDataHeader.get(i), itemList);
+        }
+    }
+
+    // Simple method to retrieve the user's favorites from the database
+    private void retrieveFav(){
+        DbHelper db = new DbHelper(this);
+
+        List<Item> itemList;
+        for (int i = 0; i<3; i++) {
+            itemList = db.getAllFavorites(i);
+            listHash.put(listDataHeader.get(i), itemList);
+        }
+        listAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * When a query is put in the searchbar and activated, this method checks if the query is not
+     * empty and starts the search-activity
+     */
+    private  void searchQuery(String query){
+        if (query.equals("")){
+            toastSomething("Cannot search an empty string");
+        } else{
+            Intent intent = new Intent(this, SearchActivity.class);
+            intent.putExtra(QUERY, query);
+            startActivity(intent);
+        }
+    }
+
+    // Method to give user feedback if needed
+    private void toastSomething(String toast){
+        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
     }
 }
